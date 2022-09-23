@@ -2,7 +2,10 @@ import("image-resizer").then(async (wasm) => {
     const url = "./images/sample.png";
     const res = await fetch(url);
     const blob = await res.blob();
-    const resized = resizeImageWasm(blob, 200, 200, 'png', wasm);
+    const resized = await resizeImageWasm(blob, 400, 400, 'png', wasm);
+
+    const a = document.getElementById('download');
+    a.href = window.URL.createObjectURL(resized);
 });
 
 async function resizeImageWasm(file, width, height, format, wasm) {
